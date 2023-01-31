@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: "java-kinesis-consumer"
+  cloud:
+    function:
+      definition: myKinesisEvent
+    stream:
+      bindings:
+        #consumers
+        myKinesisEvent-in-0:
+          binder: kinesis
+          # destination is the name of the Kinesis stream in AWS
+          destination: DataChangeEventsStream
+          content-type: application/json
+          group: ${spring.application.name}-kinesis-DataChangeEventsStream
+      kinesis:
+        # See https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/v2.2.0/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc#kinesis-consumer-properties
+        bindings:
+          myKinesisEvent-in-0:
+            consumer:
+              listenerMode: record
+              # recordsLimit: 5
+        binder:
+          # if true, the binder will create the Stream automatically, else the Stream must already exist (Default: true)
+          auto-create-stream: true
+          # if true, new shards will be created automatically, else shard size must already be configured (Default: true)
+          auto-add-shards: true
+          # if true, the Kinesis Consumer Library and/or Kinesis Producer Library will be used (Default: false)
+          kpl-kcl-enabled: true
+          min-shard-count: 1
+
+cloud:
+  aws:
+    # For credentials, use Environment variable: AWS_PROFILE=local-testing
+    # localstack configuration values
+    localstack:
+      enabled: true
+      # host value should match the k8s Service name defined in ./docker360/kubernetes/localstack.yml
+      host: ${MINIKUBE_IP}
+      # port value should match the service published port defined in ./docker360/kubernetes/localstack.yml.
+      port: 32420
+      # this value should match the value of cloud.aws.region.static
+      region: us-east-1
+    region:
+      # Enable automatic region detection based on the EC2 metadata service (Default: true)
+      auto: false
+      # effective only if auto is set to false. Value should be a valid AWS region
+      static: us-east-1
+      use-default-aws-region-chain: true
+    stack:
+      auto: false
+      enabled: false
+
+minikube:
+  ip: ${MINIKUBE_IP}
+
+amazon:
+  dynamodb:
+    region: us-east-1
+    endpoint: http://${minikube.ip}:30080
