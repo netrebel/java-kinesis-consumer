@@ -18,7 +18,7 @@ aws_access_key_id = fakeMyKeyId
 ```
 
 2. VM Runtime Option: `-DMINIKUBE_IP=localhost`
-3. Localstack running on Minikube with port `32420`
+3. Localstack running on Minikube with port `32420`. M1s, make sure your port-forward is running: `kubectl port-forward service/dynamodb 30080:8000`
 4. Create Kinesis stream before starting the app:
 ```
 AWS_PROFILE=local-testing aws --endpoint-url=http://localhost:32420 kinesis create-stream --stream-name DataChangeEventsStream --shard-count 1
