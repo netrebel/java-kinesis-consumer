@@ -63,19 +63,4 @@ public class KinesisConfigLocal {
 
                                             )).build();
     }
-
-    @Bean
-    public KinesisProducerConfiguration kinesisProducerConfiguration(AWSCredentialsProvider awsCredentialsProvider) {
-        KinesisProducerConfiguration config = new KinesisProducerConfiguration();
-        config.setCredentialsProvider(awsCredentialsProvider)
-              .setRegion(region)
-              .setKinesisEndpoint(host)
-              .setKinesisPort(port)
-              // when executing locally with localstack do not verify SSL certificate
-              .setVerifyCertificate(false)
-              // when executing locally with localstack use max delay, in ms, for credential refreshing
-              .setCredentialsRefreshDelay(300000);
-
-        return config;
-    }
 }
