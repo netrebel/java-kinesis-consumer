@@ -12,6 +12,6 @@ public class CredProviderDevelopment {
     @Bean
     @Primary
     AWSCredentialsProvider credProvider() {
-        return new ProfileCredentialsProvider("local-testing");
+        return new ProfileCredentialsProvider();
     }
 }
