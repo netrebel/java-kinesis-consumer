@@ -14,20 +14,19 @@ spring:
           content-type: application/json
           group: ${spring.application.name}-kinesis-DataChangeEventsStream
       kinesis:
-        # See https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/v2.2.0/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc#kinesis-consumer-properties
+        # For the full list of settings go to: https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/v3.0.0/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc#kinesis-consumer-properties
         bindings:
           myKinesisEvent-in-0:
             consumer:
               listenerMode: record
-              # recordsLimit: 5
         binder:
-          # if true, the binder will create the Stream automatically, else the Stream must already exist (Default: true)
-          auto-create-stream: true
-          # if true, new shards will be created automatically, else shard size must already be configured (Default: true)
-          auto-add-shards: true
-          # if true, the Kinesis Consumer Library and/or Kinesis Producer Library will be used (Default: false)
+          # autoCreateStream: if true, the binder will create the Stream automatically, else the Stream must already exist (Default: true)
+          # 'true' doesn't seem to work in spring-cloud-stream-binder-kinesis:3.0.0, it works in spring-cloud-stream-binder-kinesis:2.2.0
+          auto-create-stream: false
+          # autoAddShards: if true, new shards will be created automatically, else shard size must already be configured (Default: false)
+          auto-add-shards: false
+          # kplKclEnabled: if true, the Kinesis Consumer Library and/or Kinesis Producer Library will be used (Default: false)
           kpl-kcl-enabled: true
-          min-shard-count: 1
 
 cloud:
   aws:

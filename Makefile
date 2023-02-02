@@ -16,3 +16,6 @@ endif
 
 test-kinesis:
 	AWS_PROFILE=local-testing aws --endpoint-url=http://${MINIKUBE_IP}:32420 kinesis put-record --stream-name DataChangeEventsStream --data 'eyJldmVudFR5cGUiOiJkZWxldGUtdXNlciIsInZlcnNpb24iOjEsInRpbWVzdGFtcCI6MTY3NDc3MzQyNDY1MSwiY29udGVudCI6eyJ1c2VyVXVpZCI6ImNkNWY5MjE4LTQ1YmMtNDQxYi04M2NiLWRjZWEyMWM1MTgzZCJ9fQ==' --partition-key 1 > /tmp/mosaic-kinesis-local-test
+
+create-stream:
+	AWS_PROFILE=local-testing aws --endpoint-url=http://localhost:32420 kinesis create-stream --stream-name DataChangeEventsStream --shard-count 1
