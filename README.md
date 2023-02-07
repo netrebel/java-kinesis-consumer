@@ -35,10 +35,8 @@ aws_access_key_id = fakeMyKeyId
 ## AWS cli commands
 
 If you need to recreate the kinesis stream, you can use the following:
-```
-AWS_PROFILE=local-testing aws --endpoint-url=http://localhost:32420 kinesis list-streams
-AWS_PROFILE=local-testing aws --endpoint-url=http://localhost:32420 kinesis delete-stream --stream-name DataChangeEventsStream
-```
+- `make list-kinesis-streams`
+- `make delete-kinesis-stream`
 
 ## Services needed
 
