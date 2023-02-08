@@ -23,8 +23,9 @@ aws_access_key_id = fakeMyKeyId
 
 2. VM Runtime Option: `-DMINIKUBE_IP=localhost`
 3. Environment Variable: `AWS_CBOR_DISABLE=true`. Specified in spring-cloud-stream-binder-aws-kinesis [docs](https://github.com/spring-cloud/spring-cloud-stream-binder-aws-kinesis/blob/v3.0.0/spring-cloud-stream-binder-kinesis-docs/src/main/asciidoc/overview.adoc#telling-the-binder-to-use-your-local-endpoint)
-4. Localstack running on Minikube with port `32420`. M1s, make sure your port-forward is running: `kubectl port-forward service/dynamodb 30080:8000`
-5. Create Kinesis stream before starting the app: `make create-stream`
+4. Localstack running on Minikube with port `32420`. M1s, make sure your port-forward is running: `kubectl port-forward service/aws-localstack 32420:4566`
+5. DynamoDBLocal running on Minikube with port `30080`. M1s, make sure your port-forward is running: `kubectl port-forward service/dynamodb 30080:8000`
+6. Create Kinesis stream before starting the app: `make create-stream`
 
 ## How to run
 
