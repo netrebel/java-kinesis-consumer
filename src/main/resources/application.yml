@@ -49,6 +49,13 @@ cloud:
     stack:
       auto: false
       enabled: false
+    # this is the ARN of the Account IAM Role to assume if the producer is in a different AWS account
+    arn: "arn:aws:iam::000000000000:role/kinesis_producer_role"
+
+app:
+  meta:
+    # HOSTNAME is provided by AWS
+    hostname: ${HOSTNAME:localhost}
 
 minikube:
   ip: ${MINIKUBE_IP}
